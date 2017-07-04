@@ -30,7 +30,7 @@ SECRET_KEY = 'qz3hrz!0gq2s(*)ogsfg%pmzyzcbh7tw*rgogb8&hdcsy^uiwy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['shaon-concitusblog.dev.concitus.com']
 
 
 # Application definition
