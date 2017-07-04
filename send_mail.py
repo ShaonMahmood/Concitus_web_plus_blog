@@ -56,8 +56,8 @@ def main():
             obj.save(update_fields=['message_delivered','message_delivary_time'])
                     #server.quit()
 
-        except:
-            print("Sending Error")
+        except Exception as err:
+            print("Sending Error", err)
                     #server.quit()
 
 
