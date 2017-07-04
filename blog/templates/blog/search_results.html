@@ -1,0 +1,92 @@
+{% extends 'blog/base.html' %}
+{% load tagging_tags %}
+{% block content %}
+
+        <p>You searched for: <strong>{{ query }}</strong></p>
+
+        {% if posts %}
+
+            {% for post in posts %}
+
+
+
+
+        {%comment%}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+        {%endcomment%}
+
+
+
+
+        <article class="entry">
+
+					<header class="entry-header">
+
+						<h2 class="entry-title">
+							<a href="{{ post.get_absolute_url }}" title="">{{ post.title }}</a>
+						</h2>
+                        {% tags_for_object post as tag_list %}
+
+						<div class="entry-meta">
+							<ul>
+								<li>{{ post.publish }}</li>
+								<span class="meta-sep">&bull;</span>
+								<li>
+                                    {% for tag in tag_list %}
+                                    <a href="#" title="" rel="category tag">{{ tag }}</a>,
+                                    {% endfor %}
+                                    {% comment %}
+									<a href="#" title="" rel="category tag">Wordpress</a>,
+									<a href="#" title="" rel="category tag">Ghost</a>
+									{% endcomment %}
+								</li>
+								<span class="meta-sep">&bull;</span>
+								<li>{{ post.author }}</li>
+							</ul>
+						</div>
+
+					</header>
+
+					<div class="entry-content">
+                        {{ post.text|safe }}
+
+					</div>
+
+				</article>
+
+
+
+    {% endfor %}
+    <div class="pagenav">
+            <p>
+            {% if posts.has_previous %}
+            <a rel="prev" href="?page={{ posts.previous_page_number }}">Prev</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+            {% if posts.has_next %}
+            <a rel="next" href="?page={{ posts.next_page_number }}">Next</a>
+        {% endif %}
+
+            </p>
+        </div>
+        {% else %}
+            <p>No posts matched your search criteria.</p>
+        {% endif %}
+
+
+{% endblock %}
+
+
+
+
+

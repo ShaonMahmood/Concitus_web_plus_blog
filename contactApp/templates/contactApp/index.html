@@ -1,0 +1,468 @@
+{% load staticfiles %}
+<html lang="en">
+
+<!--
+DISCLAIMER:
+1. image size should be 474x276 (divs aren't resized so same scaled image should be used)
+2. team section is hidden, this can be showed just by uncommenting and adding photoes
+==END==
+-->
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Software, Service, Email Systems, Email Security, Antispam, Antivirus, Enterprise, Business, Programming, System Administration, Could, Hosting">
+    <meta name="description" content="Concitus - Reliable Software Architects">
+	
+	<title>Welcome to Concitus</title>
+	
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Roboto+Slab:700" rel="stylesheet">
+	
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+	<link rel="icon" sizes="32x32" href="{% static 'img/favicon.ico' %}">
+	<link rel="icon" type="image/png" sizes="192x192"  href="{% static 'img/favicon.png' %}">
+</head>
+<body data-spy="scroll" data-target=".navbar-default" data-offset="50">
+
+<section id="home">
+	<div class="full-height container">
+		<div class="text-center centered banner">
+			<img class="logo" src="{% static 'img/logo.png' %}" alt="logo">
+			<p class="banner-desc">Reliable Software Architects</p>
+		</div>
+		<a href="#about" class="go-about"><i class="fa fa-long-arrow-down"></i></a>
+	</div>
+</section>
+
+<section id="navbar">
+	<div class="navbar-wrapper">
+		<div class="container">
+			<nav class="navbar navbar-default">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" aria-expanded="false" data-toggle="collapse" data-target="#concitus-menu">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="text-uppercase navbar-brand" href="#"><img class="full-height" src="{% static 'img/logo.png' %}" alt="logo"></a>
+				</div>	<!--navbar-header-->
+				<div id="concitus-menu" class="navbar-dropdown collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right text-capitalize">
+						<li class="active"><a href="#home">home</a></li>
+						<li><a href="#about">about</a></li>
+						<!--<li><a href="#team">team</a></li>-->
+						<li><a href="#tech">technology</a></li>
+						<li><a href="#contact">Contact</a></li>
+						<li><a href="{% url 'blog:post_list' %}">Blog</a></li>
+					</ul>	<!--navbar-nav-->
+				</div>	<!--navbar-collapse-->
+			</nav>	<!--navbar-fixed-top-->
+		</div>	<!--container-->
+	</div>	<!--navbar-wrapper-->
+</section>
+
+<section id="about" class="light-bg">
+	<div class="container">
+		<div class="text-center heading">
+			<h1 class="text-uppercase">
+				<span class="light-clr">about</span>
+				<span class="blue-clr">concitus</span>
+			</h1>
+		</div>
+		<div class="row text-center">
+			<div class="col-md-3 each-about">
+				<div class="blue-clr about-icon"><i class="fa fa-sitemap"></i></div>
+				<h2 class="text-capitalize">strategic</h2>
+				<p>The key to sustainable growth is threefold: knowing your core customer, clear brand promise,
+					and setting goals towards revenue growth. Knowing where you want to go and what you
+					are going to do the next three months to get there.</p>
+			</div>
+			<div class="col-md-3 each-about">
+				<div class="blue-clr about-icon"><i class="fa fa-lightbulb-o"></i></div>
+				<h2 class="text-capitalize">creative</h2>
+				<p>Creativity is the power to connect the seemingly unconnected.
+					Imagination is the begining of creation. It is the preview of life's coming attractions.
+					Innovative ideas are our main power of creation.</p>
+			</div>
+			<div class="col-md-3 each-about">
+				<div class="blue-clr about-icon"><i class="fa fa-star"></i></div>
+				<h2 class="text-capitalize">experienced</h2>
+				<p> All of our developers and designers are well experienced in the sector of
+					developing web, desktop & mobile apps or software for years. We are on constant
+					learning pace to keep ourself up to date with new technologies.</p>
+			</div>
+			<div class="col-md-3 each-about">
+				<div class="blue-clr about-icon"><i class="fa fa-graduation-cap"></i></div>
+				<h2 class="text-capitalize">passionate</h2>
+				<p>Development is all about passion.
+					And we're genuinely dedicated & passionate
+					about our work. We never give up</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!--<section id="team" class="dark-bg">
+	<div class="container">
+		<div class="text-center heading">
+			<h1 class="text-uppercase">
+				<span class="blue-clr">concitus</span>
+				<span class="light-clr">team</span>
+			</h1>
+		</div>
+		
+		
+		<div class="all-members">
+			<div class="row">
+				<div class="col-sm-6 col-md-3">
+					<div class="each-team">
+						<div class="team-img">
+							<img src="img/team-1.jpg" alt="">
+							<figcaption>some one</figcaption>
+						</div>
+						<div class="team-details">
+							<h3 class="text-capitalize">alicia steward</h3>
+							<p class="team-position">chairman</p>
+							<p class="member-desc">lorem ipsum dolor sit amet</p>
+							<div class="team-social">
+								<ul class="nav">
+									<li><a href=""><i class="fa fa-facebook"></i></a></li>
+									<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+									<li><a href=""><i class="fa fa-skype"></i></a></li>
+									<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="each-team">
+						<div class="team-img">
+							<img src="img/team-1.jpg" alt="">
+							<figcaption>some two</figcaption>
+						</div>
+						<div class="team-details">
+							<h3 class="text-capitalize">alicia steward</h3>
+							<p class="team-position">chairman</p>
+							<p class="member-desc">lorem ipsum dolor sit amet</p>
+							<div class="team-social">
+								<ul class="nav">
+									<li><a href=""><i class="fa fa-facebook"></i></a></li>
+									<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+									<li><a href=""><i class="fa fa-skype"></i></a></li>
+									<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="each-team">
+						<div class="team-img">
+							<img src="img/team-1.jpg" alt="">
+							<figcaption>some one</figcaption>
+						</div>
+						<div class="team-details">
+							<h3 class="text-capitalize">alicia steward</h3>
+							<p class="team-position">chairman</p>
+							<p class="member-desc">lorem ipsum dolor sit amet</p>
+							<div class="team-social">
+								<ul class="nav">
+									<li><a href=""><i class="fa fa-facebook"></i></a></li>
+									<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+									<li><a href=""><i class="fa fa-skype"></i></a></li>
+									<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="each-team">
+						<div class="team-img">
+							<img src="img/team-1.jpg" alt="">
+							<figcaption>some one</figcaption>
+						</div>
+						<div class="team-details">
+							<h3 class="text-capitalize">alicia steward</h3>
+							<p class="team-position">chairman</p>
+							<p class="member-desc">lorem ipsum dolor sit amet</p>
+							<div class="team-social">
+								<ul class="nav">
+									<li><a href=""><i class="fa fa-facebook"></i></a></li>
+									<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+									<li><a href=""><i class="fa fa-skype"></i></a></li>
+									<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="each-team">
+						<div class="team-img">
+							<img src="img/team-1.jpg" alt="">
+							<figcaption>some one</figcaption>
+						</div>
+						<div class="team-details">
+							<h3 class="text-capitalize">alicia steward</h3>
+							<p class="team-position">chairman</p>
+							<p class="member-desc">lorem ipsum dolor sit amet</p>
+							<div class="team-social">
+								<ul class="nav">
+									<li><a href=""><i class="fa fa-facebook"></i></a></li>
+									<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+									<li><a href=""><i class="fa fa-skype"></i></a></li>
+									<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="each-team">
+						<div class="team-img">
+							<img src="img/team-1.jpg" alt="">
+							<figcaption>some one</figcaption>
+						</div>
+						<div class="team-details">
+							<h3 class="text-capitalize">alicia steward</h3>
+							<p class="team-position">chairman</p>
+							<p class="member-desc">lorem ipsum dolor sit amet</p>
+							<div class="team-social">
+								<ul class="nav">
+									<li><a href=""><i class="fa fa-facebook"></i></a></li>
+									<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+									<li><a href=""><i class="fa fa-skype"></i></a></li>
+									<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="each-team">
+						<div class="team-img">
+							<img src="img/team-1.jpg" alt="">
+							<figcaption>some asdjasd</figcaption>
+						</div>
+						<div class="team-details">
+							<h3 class="text-capitalize">alicia steward</h3>
+							<p class="team-position">chairman</p>
+							<p class="member-desc">lorem ipsum dolor sit amet</p>
+							<div class="team-social">
+								<ul class="nav">
+									<li><a href=""><i class="fa fa-facebook"></i></a></li>
+									<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+									<li><a href=""><i class="fa fa-skype"></i></a></li>
+									<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<div class="each-team">
+						<div class="team-img">
+							<img src="img/team-1.jpg" alt="">
+							<figcaption>some last</figcaption>
+						</div>
+						<div class="team-details">
+							<h3 class="text-capitalize">alicia steward</h3>
+							<p class="team-position">chairman</p>
+							<p class="member-desc">lorem ipsum dolor sit amet</p>
+							<div class="team-social">
+								<ul class="nav">
+									<li><a href=""><i class="fa fa-facebook"></i></a></li>
+									<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+									<li><a href=""><i class="fa fa-skype"></i></a></li>
+									<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>-->
+
+<section id="tech" class="dark-bg">
+	<div class="container">
+		<div class="text-center heading">
+			<h1 class="text-uppercase">
+				<span class="blue-clr">framework</span>
+				<span class="text-lowercase light-clr">and</span>
+				<span class="blue-clr">technology</span>
+			</h1>
+			<p>Open source enthusiast</p>
+		</div>
+		
+		<div class="row text-center">
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/python-logo.png' %}" alt="Python">
+				<p>Python</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/django-logo.png' %}" alt="django">
+				<p>django</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/rest-logo.png' %}" alt="REST framework">
+				<p>django REST framework</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/postgresql-logo.png' %}" alt="PostgreSQL">
+				<p>PostgreSQL</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/clojure-logo.png' %}" alt="Clojure">
+				<p>Clojure</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/react-logo.png' %}" alt="ReactJS">
+				<p>ReactJS</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/clojurescript-logo.png' %}" alt="ClojureScript">
+				<p>ClojureScript</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/angular-logo.png' %}" alt="AngularJS">
+				<p>AngularJS</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/php-logo.png' %}" alt="PHP MySQL">
+				<p>PHP MySQL</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/laravel-logo.png' %}" alt="laravel">
+				<p>laravel</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/gcloud-logo.png' %}" alt="Google Cloud">
+				<p>google cloud</p>
+			</div>
+			<div class="col-xs-6 col-sm-3 each-tech">
+				<img src="{% static 'img/amazonaws-logo.png' %}" alt="amazon AWS">
+				<p>amazon AWS</p>
+			</div>
+		</div>
+		
+	</div>
+</section>
+
+
+<section id="contact">
+	<div class="container">
+		<div class="text-center heading">
+			<h1 class="text-uppercase">
+				<span class="blue-clr">contact</span>
+				<span class="light-clr">us</span>
+			</h1>
+		</div>
+		
+		<div class="row contact-parent">
+			<div class="col-md-7 contact-form">
+                <form> {% csrf_token %}
+					<h3 class="text-capitalize">Leave a message</h3>
+                    <div class="form-group">
+                        <p style="color: green;" id="form_submission_success" class="form_report"></p>
+                        <p style="color: red;" id="form_submission_error" class="form_report"></p>
+                    </div>
+					<div class="form-group has-feedback">
+						<input type="text" class="form-control" id="input_name" placeholder="Subject">
+						<span class="form-control-feedback" aria-hidden="true">
+							<i class="fa fa-times"></i>
+						</span>
+					</div>
+					<div class="form-group has-feedback">
+						<input type="email" class="form-control" id="input_email" placeholder="Email">
+						<span class="form-control-feedback" aria-hidden="true">
+							<i class="fa fa-times"></i>
+						</span>
+					</div>
+					<div class="form-group has-feedback">
+						<textarea class="form-control" id="input_msg" rows="4" placeholder="Message"></textarea>
+                        <span class="form-control-feedback" aria-hidden="true">
+							<i class="fa fa-times"></i>
+						</span>
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+			</div>
+			
+			<div class="col-md-5 contact-details">
+				<h3 class="text-capitalize">contact information</h3>
+				<ul class="nav">
+					<li>
+						<span><i class="fa fa-envelope-o"></i></span>
+						<span><a href="mailto:contact@concitus.com">contact@concitus.com</a></span>
+					</li>
+					<li>
+						<span><i class="fa fa-phone"></i></span>
+						<span><a href="tel:+8801723594615">+880 1723 594615</a></span>
+					</li>
+					<li>
+						<span><i class="fa fa-home"></i></span>
+						<span>32/1, Mirpur Rooad. Khan Plaza <br>
+							(4th Floor, South Side) <br>
+							Dhanmondi, Dhaka - 1000</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div id="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14609.096016407831!2d90.3839364!3d23.7376065!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x72a12969f4bd2a99!2sConcitus!5e0!3m2!1sen!2s!4v1492948107733" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+	</div>
+</section>
+
+<footer class="dark-bg">
+	<div class="container text-center">
+		<ul class="nav">
+			<li><a href="https://www.facebook.com/concitus/"><i class="fa fa-facebook"></i></a></li>
+			<li><a href="https://twitter.com/concitus047"><i class="fa fa-twitter"></i></a></li>
+			<li><a href="https://www.linkedin.com/in/m-s-concitus-366953140/"><i class="fa fa-linkedin"></i></a></li>
+		</ul>
+		<p class="text-capitalize">© copyright 2015, all rights reserved by <a href="javascript:void(0);" class="blue-clr">concitus</a></p>
+	</div>
+</footer>
+
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/jquery.bootstrap.min.js' %}"></script>
+
+<!--<script type="text/javascript">
+    $(document).on('submit','#contact_form',function (e) {
+        e.peventDefault();
+        $.ajax({
+            type:'POST',
+            url:'/contact/',
+            data:{
+                name:$('#input_name').val(),
+                email:$('#input_email').val(),
+                message:$('#input_msg').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+
+            },
+            success:function () {
+                document.getElementById("form_submission_success").innerHTML ="your massage has been successfully submitted"
+            },
+
+        });
+    });
+</script> -->
+
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,502 @@
+{% load staticfiles %}
+
+{% load blog_tags %}
+
+{% load tagging_tags %}
+{% comment %}
+<html>
+    <head>
+        <title>Concitus Blog</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+        <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/tinymce/custom.js' %}" ></script>
+    </head>
+    <body>
+    <div class="page-header">
+
+    <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+        <h1><a href="{% url 'post_list' %}">Concitus Blog</a></h1>
+        <h1><a href="/">Home</a></h1>
+    </div>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js ie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+   <!--- Basic Page Needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>{% block title %}{% endblock %}</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- mobile specific metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+   <!-- CSS
+    ================================================== -->
+
+
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Roboto+Slab:700" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+	<link rel="icon" sizes="32x32" href="{% static 'img/favicon.ico' %}">
+	<link rel="icon" type="image/png" sizes="192x192"  href="{% static 'img/favicon.png' %}">
+   <link rel="stylesheet" href="{% static 'css/default.css' %}">
+	<link rel="stylesheet" href="{% static 'css/layout.css' %}">
+	<link rel="stylesheet" href="{% static 'css/media-queries.css' %}">
+
+
+   <!-- Script
+   ================================================== -->
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/jquery.bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+	<script src="{% static 'js/modernizr.js' %}"></script>
+
+   <!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="{% static 'favicon.png' %}" >
+
+</head>
+
+<body>
+
+   <!-- Header
+   ================================================== -->
+{% comment %}
+   <section id="home">
+	<div class="full-height container">
+		<div class="text-center centered banner">
+			<img class="logo" src="{% static 'img/logo.png' %}" alt="logo">
+			<p class="banner-desc">Reliable Software Architects</p>
+		</div>
+		<a href="#about" class="go-about"><i class="fa fa-long-arrow-down"></i></a>
+	</div>
+</section>
+{% endcomment %}
+
+<section id="navbar">
+	<div class="navbar-wrapper">
+		<div class="container">
+			<nav class="navbar navbar-default">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" aria-expanded="false" data-toggle="collapse" data-target="#concitus-menu">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="text-uppercase navbar-brand" href="#"><img class="full-height" src="{% static 'img/logo.png' %}" alt="logo"></a>
+				</div>	<!--navbar-header-->
+				<div id="concitus-menu" class="navbar-dropdown collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right text-capitalize">
+						<li class=""><a href="{% url 'contactForm' %}">home</a></li>
+                        <li class=""><a href="{% url 'blog:post_list' %}">Blog</a></li>
+						<li><a href="{% url 'blog:dashboard' %}">Dashboard</a></li>
+						<!--<li><a href="#team">team</a></li>-->
+						<li><a href="#contact">Contact</a></li>
+					</ul>	<!--navbar-nav-->
+				</div>	<!--navbar-collapse-->
+			</nav>
+            <!--navbar-fixed-top-->
+		</div>
+        <!--container-->
+	</div>
+
+    <!--navbar-wrapper-->
+</section>
+
+   {% comment %}
+   <header id="top">
+
+   	<div class="row">
+
+   		<div class="header-content twelve columns">
+
+		      <h1 id="logo-text"><a href="index.html" title="">Concitus Blog</a></h1>
+				<p id="intro">Put your awesome slogan here...</p>
+
+			</div>
+
+	   </div>
+
+	   <nav id="nav-wrap">
+
+	   	<a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
+		   <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
+
+	   	<div class="row">
+
+			   	<ul id="nav" class="nav">
+			      	<li><a href="{% url 'contactForm' %}">Home</a></li>
+			      	<li class="has-children"><a href="#">Blog Creation</a>
+	                  <ul>
+	                     <li><a href="{% url 'post_new' %}">Add a Blog</a></li>
+	                     <li><a href="#">Edit a blog</a></li>
+	                     <li><a href="#">Submenu 03</a></li>
+	                  </ul>
+	               </li>
+	               <li><a href="demo.html">Demo</a></li>
+	               <li><a href="archives.html">Archives</a></li>
+			      	<li class="has-children current"><a href="{% url 'post_list' %}">Blog</a>
+							<ul>
+	                     <li><a href="{% url 'post_list' %}">Blog Entries</a></li>
+	                     <li><a href="single.html">Single Blog</a></li>
+	                  </ul>
+			      	</li>
+			   	</ul> <!-- end #nav -->
+
+	   	</div>
+
+	   </nav> <!-- end #nav-wrap -->
+
+   </header> <!-- Header End -->
+
+   {% endcomment %}
+
+   <!-- Content
+   ================================================== -->
+
+
+
+
+
+   <div id="content-wrap">
+
+   	<div class="row">
+
+   		<div id="main" class="eight columns">
+
+            {% block content %}
+            {% endblock %}
+
+        {% comment %}
+
+	   		<article class="entry">
+
+					<header class="entry-header">
+
+						<h2 class="entry-title">
+							<a href="single.html" title="">Hey, We Love Open Sans!</a>
+						</h2>
+
+						<div class="entry-meta">
+							<ul>
+								<li>July 12, 2014</li>
+								<span class="meta-sep">&bull;</span>
+								<li><a href="#" title="" rel="category tag">Ghost</a></li>
+								<span class="meta-sep">&bull;</span>
+								<li>John Doe</li>
+							</ul>
+						</div>
+
+					</header>
+
+					<div class="entry-content">
+						<p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
+					</div>
+
+				</article> <!-- end entry -->
+
+				<article class="entry">
+
+					<header class="entry-header">
+
+						<h2 class="entry-title">
+							<a href="single.html" title="">We All Love Good Typography.</a>
+						</h2>
+
+						<div class="entry-meta">
+							<ul>
+								<li>July 11, 2014</li>
+								<span class="meta-sep">&bull;</span>
+								<li>
+									<a href="#" title="" rel="category tag">Wordpress</a>,
+									<a href="#" title="" rel="category tag">Ghost</a>
+								</li>
+								<span class="meta-sep">&bull;</span>
+								<li>Jane Doe</li>
+							</ul>
+						</div>
+
+					</header>
+
+					<div class="entry-content">
+						<p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in.</p>
+					</div>
+
+				</article> <!-- end entry -->
+
+				<article class="entry">
+
+					<header class="entry-header">
+
+						<h2 class="entry-title">
+							<a href="single.html" title="">White Space Everywhere.</a>
+						</h2>
+
+						<div class="entry-meta">
+							<ul>
+								<li>July 10, 2014</li>
+								<span class="meta-sep">&bull;</span>
+								<li>
+									<a href="#" title="" rel="category tag">Joomla</a>,
+									<a href="#" title="" rel="category tag">Drupal</a>
+								</li>
+								<span class="meta-sep">&bull;</span>
+								<li>Naruto Uzumaki</li>
+							</ul>
+						</div>
+
+					</header>
+
+					<div class="entry-content">
+						<p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
+					</div>
+
+				</article> <!-- end entry -->
+
+				<article class="entry">
+
+					<header class="entry-header">
+
+						<h2 class="entry-title">
+							<a href="single.html" title="">Simple And Minimalist Designs.</a>
+						</h2>
+
+						<div class="entry-meta">
+							<ul>
+								<li>July 09, 2014</li>
+								<span class="meta-sep">&bull;</span>
+								<li>
+									<a href="#" title="" rel="category tag">Ghost</a>
+								</li>
+								<span class="meta-sep">&bull;</span>
+								<li>Naruto Uzumaki</li>
+							</ul>
+						</div>
+
+					</header>
+
+					<div class="entry-content">
+						<p>Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco magna amet magna cupidatat qui labore cillum sit in tempor veniam consequat non laborum adipisicing aliqua ea nisi sint ut quis proident ullamco ut dolore culpa occaecat ut laboris in sit minim cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.</p>
+					</div>
+
+				</article> <!-- end entry -->
+
+				<div class="pagenav">
+	            <p>
+	            <a rel="prev" href="#">Prev</a>
+	            <a rel="next" href="#">Next</a>
+	            </p>
+            </div>
+        {% endcomment %}
+
+   		</div> <!-- end main -->
+
+   		<div id="sidebar" class="four columns">
+
+   			<div class="widget widget_search">
+                  <h3>Search</h3>
+                  <form action="{% url 'blog:searchBlog' %}" method="get">
+
+                     <input type="text" value="Search here..." name="q" onblur="if(this.value == '') { this.value = 'Search here...'; }"
+                            onfocus="if (this
+                     .value == 'Search here...') { this.value = ''; }" class="text-search">
+                     <input type="submit" value="" class="submit-search">
+
+                  </form>
+               </div>
+
+   			<div class="widget widget_categories group">
+   				<h3>Categories/Tags</h3>
+   				<ul>
+                    {% for tag in all %}
+                        <li><a href="{% url 'blog:tagSearch' pk=tag.name %}" title="">{{ tag.name }}</a> ({{ tag.count }})</li>
+                    {% endfor %}
+
+                {% comment %}
+						<li><a href="#" title="">Wordpress</a> (2)</li>
+						<li><a href="#" title="">Ghost</a> (14)</li>
+						<li><a href="#" title="">Joomla</a> (5)</li>
+						<li><a href="#" title="">Drupal</a> (3)</li>
+						<li><a href="#" title="">Magento</a> (2)</li>
+						<li><a href="#" title="">Uncategorized</a> (9)</li>
+
+						{% endcomment %}
+					</ul>
+				</div>
+        {% comment %}
+
+				<div class="widget widget_text group">
+					<h3>Widget Text.</h3>
+
+   				<p>Lorem ipsum Ullamco commodo laboris sit dolore commodo aliquip incididunt fugiat esse dolor aute fugiat minim eiusmod do velit labore fugiat officia ad sit culpa labore in consectetur sint cillum sint consectetur voluptate adipisicing Duis irure magna ut sit amet reprehenderit.</p>
+
+   			</div>
+{% endcomment %}
+   			<div class="widget widget_tags">
+               <h3>Post Tags.</h3>
+
+               <div class="tagcloud group">
+
+                   {% for tag in all %}
+
+                       <a href="{% url 'blog:tagSearch' pk=tag.name %}">{{ tag.name }}</a>
+                    {% endfor %}
+
+
+               </div>
+
+            </div>
+
+            <div class="widget widget_popular">
+               <h3>Recent Posts.</h3>
+
+                {% show_latest_posts 3 %}
+
+
+            </div>
+
+   		</div> <!-- end sidebar -->
+
+   	</div> <!-- end row -->
+
+   </div> <!-- end content-wrap -->
+
+
+   <!-- Footer
+   ================================================== -->
+
+
+   <footer class="dark-bg">
+	<div class="container text-center">
+		<ul class="nav">
+			<li><a href="https://www.facebook.com/concitus/"><i class="fa fa-facebook"></i></a></li>
+			<li><a href="https://twitter.com/concitus047"><i class="fa fa-twitter"></i></a></li>
+			<li><a href="https://www.linkedin.com/in/m-s-concitus-366953140/"><i class="fa fa-linkedin"></i></a></li>
+		</ul>
+		<p class="text-capitalize">© copyright 2015, all rights reserved by <a href="javascript:void(0);" class="blue-clr">concitus</a></p>
+	</div>
+</footer>
+
+   {% comment %}
+   <footer>
+
+      <div class="row">
+
+      	<div class="twelve columns">
+				<ul class="social-links">
+               <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+               <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+               <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+               <li><a href="#"><i class="fa fa-github-square"></i></a></li>
+               <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+               <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+               <li><a href="#"><i class="fa fa-skype"></i></a></li>
+            </ul>
+      	</div>
+
+         <div class="six columns info">
+
+            <h3>About Concitus blog</h3>
+
+            <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
+            Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem
+            nibh id elit.
+            </p>
+
+            <p>Lorem ipsum Sed nulla deserunt voluptate elit occaecat culpa cupidatat sit irure sint
+            sint incididunt cupidatat esse in Ut sed commodo tempor consequat culpa fugiat incididunt.</p>
+
+         </div>
+
+         <div class="four columns">
+
+            <h3>Photostream</h3>
+
+            <ul class="photostream group">
+               <li><a href="#"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+               <li><a href="#"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+               <li><a href="#"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+               <li><a href="#"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+               <li><a href="#"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+               <li><a href="#"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+               <li><a href="#"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+               <li><a href="#"><img alt="thumbnail" src="{% static 'images/thumb.jpg' %}"></a></li>
+            </ul>
+
+         </div>
+
+         <div class="two columns">
+            <h3 class="social">Navigate</h3>
+
+            <ul class="navigate group">
+               <li><a href="#">Home</a></li>
+               <li><a href="#">Blog</a></li>
+               <li><a href="#">Demo</a></li>
+               <li><a href="#">Archives</a></li>
+               <li><a href="#">About</a></li>
+            </ul>
+         </div>
+
+         <p class="copyright">&copy; Copyright 2017 Concitus. &nbsp; Design by <a title="Styleshout" href="http://www.styleshout.com/">Styleshout</a>.</p>
+
+      </div> <!-- End row -->
+
+      <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-chevron-up"></i></a></div>
+
+   </footer> <!-- End Footer-->
+
+   {% endcomment %}
+
+
+   <!-- Java Script
+   ================================================== -->
+   <script src="{% static 'js/jquery.bootstrap.min.js' %}"></script>
+   <script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.10.2.min.js' %}"><\/script>')</script>
+   <script type="text/javascript" src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+   <script src="{% static 'js/main1.js' %}"></script>
+
+
+</body>
+
+</html>
