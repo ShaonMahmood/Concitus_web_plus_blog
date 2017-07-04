@@ -1,0 +1,8 @@
+{
+	"scripts": {
+		"dokku": {
+			"predeploy": "python3 manage.py migrate"
+			//"postdeploy": "curl https://some.external.api.service.com/deployment?state=success"
+		}
+	}
+}
