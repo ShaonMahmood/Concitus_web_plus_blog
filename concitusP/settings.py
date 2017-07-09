@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+"""
+DATABASE_URL = None
+try:
+    import dj_database_url
+    DATABASE_URL = os.environ.get('DATABASE_URL')
+except ImportError:
+    pass
+
+"""
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import tempfile
 
@@ -30,7 +39,7 @@ SECRET_KEY = 'qz3hrz!0gq2s(*)ogsfg%pmzyzcbh7tw*rgogb8&hdcsy^uiwy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['shaon-concitusblog.dev.concitus.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,6 +97,9 @@ WSGI_APPLICATION = 'concitusP.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+
+
 
 DATABASES = {
     'default': {
@@ -185,6 +197,7 @@ LOGOUT_URL = reverse_lazy('blog:dashboard')
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
 
 
 #STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
