@@ -113,7 +113,7 @@
 			param2.find('i.fa').removeClass(successIcon).addClass(errIcon);
 		}
 
-		$('.contact-form form .btn').click(function (e) {
+		/*$('.contact-form form .btn').click(function (e) {
 			e.preventDefault();
 
             var $form_submission_success = $('#form_submission_success');
@@ -127,7 +127,7 @@
             } else {
 				$form_submission_error.html("Please fix the error/s");
             }
-		});
+		});*/
 
 	});
 })(jQuery);
