@@ -33,7 +33,7 @@ DEBUG = True
 def main():
 
     fromaddr = "mahmood.shaon@concitus.com"
-    toaddr = "concitus@concitus.com"
+    toaddr = "mahmood.shaon@concitus.com"
     for obj in Contact_form.objects.filter(message_delivered=False).order_by('actual_message_time')[:3]:
 
 

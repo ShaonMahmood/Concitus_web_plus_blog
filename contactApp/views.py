@@ -10,9 +10,9 @@ from .models import Contact_form
 #@csrf_exempt
 def contact_submit(request):
     if request.method=='POST':
-        subject=request.POST['input_name']
-        email=request.POST['input_email']
-        message=request.POST['input_msg']
+        subject=request.POST['subject']
+        email=request.POST['email']
+        message=request.POST['msg']
 
         Contact_form.objects.create(
             subject=subject,
