@@ -14,3 +14,5 @@ class Contact_form(models.Model):
     def __str__(self):
         return self.subject+" "+self.email+" "+str(self.message_delivered)
 
+
+#testing git
