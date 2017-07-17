@@ -186,7 +186,7 @@ DISCLAIMER:
 		
 		<div class="row contact-parent">
 			<div class="col-md-7 contact-form">
-                <form class="form"> {% csrf_token %}
+                <form class="form" method="post"> {% csrf_token %}
 					<h3 class="text-capitalize">Leave a message</h3>
                     <div class="form-group">
                         <p style="color: green;" id="form_submission_success" class="form_report"></p>
@@ -205,7 +205,7 @@ DISCLAIMER:
 						</span>
 					</div>
 					<div class="form-group has-feedback">
-						<textarea class="form-control" id="input_msg" name="msg"  rows="4" placeholder="Message"></textarea>
+						<textarea class="form-control" id="input_message" name="message"  rows="4" placeholder="Message"></textarea>
                         <span class="form-control-feedback" aria-hidden="true">
 							<i class="fa fa-times"></i>
 						</span>
