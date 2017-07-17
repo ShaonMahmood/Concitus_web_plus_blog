@@ -13,10 +13,10 @@ def contact_submit(request):
 
     form = AjaxContactForm(request.POST)
     if form.is_valid():
-        print("2222222222")
+
         Contactpost = form.save(commit=False)
         Contactpost.save()
-    print("333333333")
+
     return HttpResponse('')
 
 
