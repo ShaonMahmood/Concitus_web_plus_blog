@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
 {% load tagging_tags %}
+
+{% load blog_tags %}
 {% block content %}
 
         <p>You searched for: <strong>{{ query }}</strong></p>
@@ -83,6 +85,77 @@
             <p>No posts matched your search criteria.</p>
         {% endif %}
 
+
+{% endblock %}
+
+{% block sidebar %}
+
+
+    <div id="sidebar" class="four columns">
+
+   			<div class="widget widget_search">
+                  <h3>Search</h3>
+                  <form action="{% url 'blog:searchBlog' %}" method="get">
+
+                     <input type="text" value="Search here..." name="q" onblur="if(this.value == '') { this.value = 'Search here...'; }"
+                            onfocus="if (this
+                     .value == 'Search here...') { this.value = ''; }" class="text-search">
+                     <input type="submit" value="" class="submit-search">
+
+                  </form>
+               </div>
+
+   			<div class="widget widget_categories group">
+   				<h3>Categories/Tags</h3>
+   				<ul>
+                    {% for tag in all %}
+                        <li><a href="{% url 'blog:tagSearch' pk=tag.name %}" title="">{{ tag.name }}</a> ({{ tag.count }})</li>
+                    {% endfor %}
+
+                {% comment %}
+						<li><a href="#" title="">Wordpress</a> (2)</li>
+						<li><a href="#" title="">Ghost</a> (14)</li>
+						<li><a href="#" title="">Joomla</a> (5)</li>
+						<li><a href="#" title="">Drupal</a> (3)</li>
+						<li><a href="#" title="">Magento</a> (2)</li>
+						<li><a href="#" title="">Uncategorized</a> (9)</li>
+
+						{% endcomment %}
+					</ul>
+				</div>
+        {% comment %}
+
+				<div class="widget widget_text group">
+					<h3>Widget Text.</h3>
+
+   				<p>Lorem ipsum Ullamco commodo laboris sit dolore commodo aliquip incididunt fugiat esse dolor aute fugiat minim eiusmod do velit labore fugiat officia ad sit culpa labore in consectetur sint cillum sint consectetur voluptate adipisicing Duis irure magna ut sit amet reprehenderit.</p>
+
+   			</div>
+{% endcomment %}
+   			<div class="widget widget_tags">
+               <h3>Post Tags.</h3>
+
+               <div class="tagcloud group">
+
+                   {% for tag in all %}
+
+                       <a href="{% url 'blog:tagSearch' pk=tag.name %}">{{ tag.name }}</a>
+                    {% endfor %}
+
+
+               </div>
+
+            </div>
+
+            <div class="widget widget_popular">
+               <h3>Recent Posts.</h3>
+
+                {% show_latest_posts 3 %}
+
+
+            </div>
+
+   		</div> <!-- end sidebar -->
 
 {% endblock %}
 

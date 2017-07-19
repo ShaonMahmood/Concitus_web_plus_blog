@@ -98,14 +98,6 @@ def post_list(request):
     return render(request, 'blog/post_list.html', {'posts': queryset,'all':all,})
 
 
-def post_detail2(request,pk):
-    post = get_object_or_404(Post,pk=pk
-                            )
-    #postprev=Post.objects.get(pk=post.pk-1)
-    #postafter=Post.objects.get(pk=post.pk+1)
-    # tags=Tag.objects.get_for_object(post)
-    # all=Tag.objects.usage_for_model(Post,filters=dict(status='published'),counts=True)
-    return render(request, 'blog/post_detail2.html', {'post': post,})
 
 
 def post_detail(request, year, month, day, post):
@@ -119,7 +111,7 @@ def post_detail(request, year, month, day, post):
     tags=Tag.objects.get_for_object(post)
     all=Tag.objects.usage_for_model(Post,filters=dict(status='published'),counts=True)
     return render(request, 'blog/post_detail.html', {'post': post,'tags':tags,'all':all,})
-@csrf_exempt
+@login_required
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -152,10 +144,16 @@ def post_new(request):
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
-
+@login_required
 def post_edit(request, pk):
-    post = get_object_or_404(Post,pk=pk
-                             )
+
+    if request.user.is_superuser:
+        post = get_object_or_404(Post, pk=pk)
+
+    else:
+        query=Post.objects.filter(author=request.user)
+        post = get_object_or_404(query, pk=pk)
+
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():

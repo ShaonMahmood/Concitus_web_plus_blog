@@ -1,8 +1,11 @@
 {#{% extends "blog/base.html" %}#}
 
-{% extends 'blog/baseD.html' %}
+{% extends 'blog/base.html' %}
 {#{% load staticfiles %}#}
 {#{% load tagging_tags %}#}
+{% load blog_tags %}
+
+{% load tagging_tags %}
 
 {% block title %}Dashboard{% endblock %}
 
@@ -24,9 +27,8 @@
 
 
   <tr>
-    <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;"><a href="{% url 'blog:post_detail2' pk=post.pk %}"
-                                                                                   title="">
-        {{ post.title }}</a></td>
+    <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;"><a href="{{ post.get_absolute_url }}" title=""
+    >{{ post.title }}</a></td>
     <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;">{{ post.status }}</td>
     <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;">{{ post.created }}</td>
   <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;">{{ post.updated }}</td>
