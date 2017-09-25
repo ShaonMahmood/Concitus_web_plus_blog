@@ -46,9 +46,6 @@
             }
         }
 
-
-       // $('body').scrollspy({ target: '.navbar-collapse',offset: 100 });
-
 		//setting '.team-img' height according to team's img
 		function TeamParent_SetHeight()
 		{
