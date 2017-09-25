@@ -40,4 +40,4 @@ def contact_form(request):
             print(geo_err)
     print(country_code)
     return render(request, 'contactApp/index.html',
-                  {'country_code': country_code})
+                  {'country_code_bd': (country_code == 'BD')})
