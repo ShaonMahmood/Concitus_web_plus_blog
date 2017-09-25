@@ -60,7 +60,7 @@ DISCLAIMER:
 						<!--<li><a href="#team">team</a></li>-->
 						<li><a href="#tech">technology</a></li>
 						<li><a href="#contact">Contact</a></li>
-						<li><a href="{% url 'blog:post_list' %}">Blog</a></li>
+						<li><a onclick="javascript:void(0)" {% comment %}href="{% url 'blog:post_list' %}"{% endcomment %}>Blog</a></li>
 					</ul>	<!--navbar-nav-->
 				</div>	<!--navbar-collapse-->
 			</nav>	<!--navbar-fixed-top-->
@@ -184,8 +184,15 @@ DISCLAIMER:
 			</h1>
 		</div>
 		
+	{% if not country_code_bd %}
 		<div class="row contact-parent">
+			<div class="col-xs-12 contact-form">
+	{% else %}
+		<div class="row contact-parent contact-parent__bd">
 			<div class="col-md-7 contact-form">
+	{% endif %}
+		
+		
                 <form class="form" method="post"> {% csrf_token %}
 					<h3 class="text-capitalize">Leave a message</h3>
                     <div class="form-group">
@@ -212,26 +219,64 @@ DISCLAIMER:
 					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
-			</div>
+			</div>  <!-- contact form end -->
 			
+		
+		{% if not country_code_bd %}
+			<div class="col-xs-12 contact-details">
+		{% else %}
 			<div class="col-md-5 contact-details">
+		{% endif %}
+	
+	
 				<h3 class="text-capitalize">contact information</h3>
-				<ul class="nav">
-					<li>
-						<span><i class="fa fa-envelope-o"></i></span>
-						<span><a href="mailto:contact@concitus.com">contact@concitus.com</a></span>
-					</li>
-					<li>
-						<span><i class="fa fa-phone"></i></span>
-						<span><a href="tel:+8801723594615">+880 1723 594615</a></span>
-					</li>
-					<li>
-						<span><i class="fa fa-home"></i></span>
-						<span>32/1, Mirpur Rooad. Khan Plaza <br>
-							(4th Floor, South Side) <br>
-							Dhanmondi, Dhaka - 1000</span>
-					</li>
-				</ul>
+	
+			{% if not country_code_bd %}
+				<div class="row">
+					<ul class="nav col-md-6">
+						<li class="country">United States:</li>
+						<li style="margin-bottom: 0"><span>Adam Awany</span></li>
+						<li style="font-style: italic;font-size: 11px"><span class="text-italic">Chief Executive Officer</span></li>
+						<li>
+							<span><i class="fa fa-envelope-o"></i></span>
+							<span><a href="mailto:contact@concitus.com">adam.awany@concitus.com</a></span>
+						</li>
+						<li>
+							<span><i class="fa fa-phone"></i></span>
+							<span><a href="tel:+8801723594615">(305) 709-7447</a></span>
+						</li>
+						<li>
+							<span><i class="fa fa-home"></i></span>
+							<span>725 SW 23rd Road <br>
+								Miami, Florida 33129</span>
+						</li>
+					</ul>
+					<ul class="nav col-md-6">
+						<li class="country" style="margin-top: 25px">Bangladesh:</li>
+					{% else %}
+					<ul class="nav">
+					{% endif %}
+
+						<li>
+							<span><i class="fa fa-envelope-o"></i></span>
+							<span><a href="mailto:contact@concitus.com">contact@concitus.com</a></span>
+						</li>
+						<li>
+							<span><i class="fa fa-phone"></i></span>
+							<span><a href="tel:+8801723594615">+880 1723 594615</a></span>
+						</li>
+						<li>
+							<span><i class="fa fa-home"></i></span>
+							<span>32/1, Mirpur Rooad. Khan Plaza <br>
+								(4th Floor, South Side) <br>
+								Dhanmondi, Dhaka - 1000</span>
+						</li>
+					</ul>
+	
+			{% if not country_code_bd %}
+				</div>  <!--ended .row just before ul.nav.col-md-6-->
+			{% endif %}
+	
 			</div>
 		</div>
 	</div>
@@ -255,29 +300,6 @@ DISCLAIMER:
 <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
 <script src="{% static 'js/jquery.bootstrap.min.js' %}"></script>
 <script src="{% static 'js/jquery.cookie.js' %}"></script>
-
-<!--<script type="text/javascript">
-    $(document).on('submit','#contact_form',function (e) {
-        e.peventDefault();
-        $.ajax({
-            type:'POST',
-            url:'/contact/',
-            data:{
-                name:$('#input_name').val(),
-                email:$('#input_email').val(),
-                message:$('#input_msg').val(),
-                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-
-
-            },
-            success:function () {
-                document.getElementById("form_submission_success").innerHTML ="your massage has been successfully submitted"
-            },
-
-        });
-    });
-</script> -->
-
 <script src="{% static 'js/main.js' %}"></script>
 
 <script>
@@ -305,8 +327,6 @@ DISCLAIMER:
                         $form_submission_success.html("Thank you for your message");
                     },
                 });
-
-
             } else {
                 $form_submission_error.html("Please fix the error/s");
             }

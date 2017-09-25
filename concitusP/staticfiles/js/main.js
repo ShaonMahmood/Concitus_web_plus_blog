@@ -112,22 +112,5 @@
 			param2.removeClass(successClass).addClass(errClass);
 			param2.find('i.fa').removeClass(successIcon).addClass(errIcon);
 		}
-
-		$('.contact-form form .btn').click(function (e) {
-			e.preventDefault();
-
-            var $form_submission_success = $('#form_submission_success');
-            var $form_submission_error = $('#form_submission_error');
-
-            $('.form_report').empty();
-
-			if ($('i.fa.fa-check').size() >= 2) {     //checking how many valid inputs available
-				$form_submission_success.html("Thank you for your message");
-                $('.form-control').val('');
-            } else {
-				$form_submission_error.html("Please fix the error/s");
-            }
-		});
-
 	});
 })(jQuery);
