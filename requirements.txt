@@ -14,3 +14,4 @@ pytz==2017.2
 requests==2.14.2
 six==1.10.0
 whitenoise==3.3.0
+geoip2==2.5.0

@@ -199,6 +199,7 @@ db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 
+GEOIP_PATH = os.path.join(BASE_DIR, 'geoip_db')
 
 #STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 

@@ -2,6 +2,7 @@
 *~
 __pycache__
 env_con/*
+env/*
 .idea/*
 db.sqlite3
 /static
