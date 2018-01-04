@@ -8,3 +8,5 @@ db.sqlite3
 /static
 .DS_Store
 _e/*
+create_db.sql
+yourscript.egg-info/*

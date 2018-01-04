@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate,login
 #from django.contrib.auth.views import login
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.urls import reverse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 
 from blog.forms import PostForm, LoginForm
 from .models import Post
@@ -82,7 +83,7 @@ def post_list(request):
     queryset_list = Post.published.all()
     all=Tag.objects.usage_for_model(Post,filters=dict(status='published'),counts=True)
 
-    paginator = Paginator(queryset_list, 4)  # Show 25 contacts per page
+    paginator = Paginator(queryset_list, 5)  # Show 5 contacts per page
 
     page = request.GET.get('page')
     try:
@@ -161,28 +162,36 @@ def post_edit(request, pk):
             #if (post.published_status):
                 #post.publish()
             post.save()
-            if request.user.is_superuser:
-                queryset_list = Post.objects.all()
-            else:
-                queryset_list = Post.objects.filter(author__username=request.user.username)
-
-            paginator = Paginator(queryset_list, 5)  # Show 25 contacts per page
-
-            page = request.GET.get('page')
-            try:
-                queryset = paginator.page(page)
-            except PageNotAnInteger:
-                # If page is not an integer, deliver first page.
-                queryset = paginator.page(1)
-            except EmptyPage:
-                # If page is out of range (e.g. 9999), deliver last page of results.
-                queryset = paginator.page(paginator.num_pages)
-            return render(request,'blog/dashboard.html',{'posts': queryset,})
+            return reverse('dashboard')
+            # if request.user.is_superuser:
+            #     queryset_list = Post.objects.all()
+            # else:
+            #     queryset_list = Post.objects.filter(author__username=request.user.username)
+            #
+            # paginator = Paginator(queryset_list, 5)  # Show 25 contacts per page
+            #
+            # page = request.GET.get('page')
+            # try:
+            #     queryset = paginator.page(page)
+            # except PageNotAnInteger:
+            #     # If page is not an integer, deliver first page.
+            #     queryset = paginator.page(1)
+            # except EmptyPage:
+            #     # If page is out of range (e.g. 9999), deliver last page of results.
+            #     queryset = paginator.page(paginator.num_pages)
+            # return render(request,'blog/dashboard.html',{'posts': queryset,})
+        else:
+            return JsonResponse(form.errors,status=400)
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
 
 
+@login_required
+def post_delete(request,pk):
+    instance = Post.objects.get(pk=pk)
+    instance.delete()
+    return HttpResponseRedirect(reverse('blog:dashboard'))
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)

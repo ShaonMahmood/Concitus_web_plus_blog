@@ -3,7 +3,7 @@
 {% load tagging_tags %}
 {% load blog_tags %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}Detail: {{ post.title }}{% endblock %}
 {% block content %}
     {% comment %}
     <div class="post">
@@ -56,11 +56,11 @@
 
 					</header>
 
-					<div class="entry-content-media">
-						<div class="post-thumb">
-							<img src="{% static 'images/sample-image.jpg' %}">
-						</div>
-					</div>
+{#					<div class="entry-content-media">#}
+{#						<div class="post-thumb">#}
+{#							<img src="{% static 'images/sample-image.jpg' %}">#}
+{#						</div>#}
+{#					</div>#}
 
 					<div class="entry-content">
 						{{ post.text|safe }}

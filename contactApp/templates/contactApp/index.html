@@ -27,6 +27,8 @@ DISCLAIMER:
 	
 	<link rel="icon" sizes="32x32" href="{% static 'img/favicon.ico' %}">
 	<link rel="icon" type="image/png" sizes="192x192"  href="{% static 'img/favicon.png' %}">
+
+
 </head>
 <body>
 
@@ -60,7 +62,8 @@ DISCLAIMER:
 						<!--<li><a href="#team">team</a></li>-->
 						<li><a href="#tech">technology</a></li>
 						<li><a href="#contact">Contact</a></li>
-						<li><a onclick="javascript:void(0)" {% comment %}href="{% url 'blog:post_list' %}"{% endcomment %}>Blog</a></li>
+						<li><a href="{% url 'blog:post_list' %}">Blog</a></li>
+{#                        onclick="javascript:void(0)"#}
 					</ul>	<!--navbar-nav-->
 				</div>	<!--navbar-collapse-->
 			</nav>	<!--navbar-fixed-top-->

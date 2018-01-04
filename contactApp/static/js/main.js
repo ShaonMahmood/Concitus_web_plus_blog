@@ -18,12 +18,14 @@
 			if ($(window).scrollTop() >= _scrollFixPos)
 			{
 				_navbar.addClass('fixed-navbar');
+				$('#content-wrap').css('padding-top','92px')
 				_about.css('margin-top', '50px');
 			}
 			else
 			{
 				_navbar.removeClass('fixed-navbar');
 				_about.css('margin-top', '0');
+				$('#content-wrap').css('padding-top','42px')
 			}
 		});
 
