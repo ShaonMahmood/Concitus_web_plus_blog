@@ -3,48 +3,6 @@
 {% load blog_tags %}
 
 {% load tagging_tags %}
-{% comment %}
-<html>
-    <head>
-        <title>Concitus Blog</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-
-        <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/tinymce/custom.js' %}" ></script>
-    </head>
-    <body>
-    <div class="page-header">
-
-    <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-        <h1><a href="{% url 'post_list' %}">Concitus Blog</a></h1>
-        <h1><a href="/">Home</a></h1>
-    </div>
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
-            {% block content %}
-            {% endblock %}
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-{% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
@@ -62,7 +20,7 @@
 
 	<!-- mobile specific metas
    ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
    <!-- CSS
     ================================================== -->
@@ -70,7 +28,11 @@
 
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
 
-	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+{#	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">#}
 
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Roboto+Slab:700" rel="stylesheet">
 
@@ -78,18 +40,23 @@
 
 	<link rel="icon" sizes="32x32" href="{% static 'img/favicon.ico' %}">
 	<link rel="icon" type="image/png" sizes="192x192"  href="{% static 'img/favicon.png' %}">
-   <link rel="stylesheet" href="{% static 'css/default.css' %}">
-	<link rel="stylesheet" href="{% static 'css/layout.css' %}">
-	<link rel="stylesheet" href="{% static 'css/media-queries.css' %}">
+{#   <link rel="stylesheet" href="{% static 'css/default.css' %}">#}
+{#	<link rel="stylesheet" href="{% static 'css/layout.css' %}">#}
+{#	<link rel="stylesheet" href="{% static 'css/media-queries.css' %}">#}
 
 
-   <!-- Script
-   ================================================== -->
+    <!-- Script
+    ================================================== -->
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
-<script src="{% static 'js/jquery.bootstrap.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
 
-	<script src="{% static 'js/modernizr.js' %}"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    {#<script src="{% static 'js/jquery.bootstrap.min.js' %}"></script>#}
+{#    <script src="{% static 'js/main.js' %}"></script>#}
+
+{#	<script src="{% static 'js/modernizr.js' %}"></script>#}
 
    <!-- Favicons
 	================================================== -->
@@ -100,6 +67,8 @@
             border: none;
         }
     </style>
+
+    {% block extra_css %}{% endblock extra_css %}
 
 </head>
 
@@ -119,7 +88,8 @@
 </section>
 {% endcomment %}
 
-<section id="navbar">
+
+   <section id="navbar">
 	<div class="navbar-wrapper">
 		<div class="container">
 			<nav class="navbar navbar-default">
@@ -165,98 +135,80 @@
     <!--navbar-wrapper-->
 </section>
 
-   {% comment %}
-   <header id="top">
+
+<section style="padding-bottom: 60px;padding-top: 15px">
+   <div class="container">
+
 
    	<div class="row">
+{#        <div class="col-md-2">#}
+{##}
+{#        </div>#}
 
-   		<div class="header-content twelve columns">
-
-		      <h1 id="logo-text"><a href="index.html" title="">Concitus Blog</a></h1>
-				<p id="intro">Put your awesome slogan here...</p>
-
-			</div>
-
-	   </div>
-
-	   <nav id="nav-wrap">
-
-	   	<a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
-		   <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
-
-	   	<div class="row">
-
-			   	<ul id="nav" class="nav">
-			      	<li><a href="{% url 'contactForm' %}">Home</a></li>
-			      	<li class="has-children"><a href="#">Blog Creation</a>
-	                  <ul>
-	                     <li><a href="{% url 'post_new' %}">Add a Blog</a></li>
-	                     <li><a href="#">Edit a blog</a></li>
-	                     <li><a href="#">Submenu 03</a></li>
-	                  </ul>
-	               </li>
-	               <li><a href="demo.html">Demo</a></li>
-	               <li><a href="archives.html">Archives</a></li>
-			      	<li class="has-children current"><a href="{% url 'post_list' %}">Blog</a>
-							<ul>
-	                     <li><a href="{% url 'post_list' %}">Blog Entries</a></li>
-	                     <li><a href="single.html">Single Blog</a></li>
-	                  </ul>
-			      	</li>
-			   	</ul> <!-- end #nav -->
-
-	   	</div>
-
-	   </nav> <!-- end #nav-wrap -->
-
-   </header> <!-- Header End -->
-
-   {% endcomment %}
-
-   <!-- Content
-   ================================================== -->
-
-
-
-
-
-   <div id="content-wrap">
-
-   	<div class="row">
-
-   		<div id="main" class="eight columns">
+   		<div id="main" class="col-md-8">
 
             {% block content %}
             {% endblock %}
 
    		</div> <!-- end main -->
 
+{#        <div class="col-md-2">#}
+{#            #}
+{#        </div>#}
 
 
+<div id="sidebar" class="col-md-4">
     {% block sidebar %}
     {% endblock %}
+</div>
 
 
 
    	</div> <!-- end row -->
 
    </div> <!-- end content-wrap -->
-
-
+</section>
    <!-- Footer
    ================================================== -->
 
 
-   <footer class="dark-bg">
-	<div class="container text-center">
-		<ul class="nav">
-			<li><a href="https://www.facebook.com/concitus/"><i class="fa fa-facebook"></i></a></li>
-			<li><a href="https://twitter.com/concitus047"><i class="fa fa-twitter"></i></a></li>
-			<li><a href="https://www.linkedin.com/in/m-s-concitus-366953140/"><i class="fa fa-linkedin"></i></a></li>
-		</ul>
-		<p class="text-capitalize">© copyright 2015, all rights reserved by <a href="javascript:void(0);" class="blue-clr">concitus</a></p>
-	</div>
-</footer>
+   <footer class="dark-bg" style="margin-top: 30px">
+       <div class="container">
+           <div class="row">
+               <div class="col-md-6">
+                   <h3>About Concitus blog</h3>
+                   <p>This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
+                       Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem
+                       nibh id elit.
+                   </p>
+                   <p>Lorem ipsum Sed nulla deserunt voluptate elit occaecat culpa cupidatat sit irure sint
+                       sint incididunt cupidatat esse in Ut sed commodo tempor consequat culpa fugiat incididunt.</p>
+               </div>
+               <div class="col-md-6">
+                   <div class="row">
+                       <div class="col-md-12" style="text-align: center;padding-bottom: 10px">
+                           <h3>Follow us on</h3>
+                       </div>
+                       <div class="col-md-12">
+                           <ui class="nav">
+                               <li><a href="https://www.facebook.com/concitus/"><i class="fa fa-facebook"></i></a></li>
+                               <li><a href="https://twitter.com/concitus047"><i class="fa fa-twitter"></i></a></li>
+                               <li><a href="https://www.linkedin.com/in/m-s-concitus-366953140/"><i
+                                       class="fa fa-linkedin"></i></a>
+                               </li>
+                           </ui>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="row" style="text-align: center">
+               <div class="col-md-12">
+                   <p class="text-capitalize">© copyright 2015, all rights reserved by <a
+                       href="javascript:void(0);" class="blue-clr">concitus</a></p>
+               </div>
+           </div>
+       </div>
+   </footer>
 
    {% comment %}
    <footer>
@@ -331,10 +283,10 @@
 
    <!-- Java Script
    ================================================== -->
-   <script src="{% static 'js/jquery.bootstrap.min.js' %}"></script>
-   <script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.10.2.min.js' %}"><\/script>')</script>
-   <script type="text/javascript" src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
-   <script src="{% static 'js/main1.js' %}"></script>
+{#   <script src="{% static 'js/jquery.bootstrap.min.js' %}"></script>#}
+{#   <script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.10.2.min.js' %}"><\/script>')</script>#}
+{#   <script type="text/javascript" src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>#}
+{#   <script src="{% static 'js/main1.js' %}"></script>#}
 
 
 </body>

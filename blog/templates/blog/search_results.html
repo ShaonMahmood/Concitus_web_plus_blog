@@ -5,158 +5,156 @@
 {% block title %}Search Results{% endblock %}
 {% block content %}
 
-        <p>You searched for: <strong>{{ query }}</strong></p>
+        <div class="col-md-8">
 
-        {% if posts %}
+    <div id="articles" class="row">
 
-            {% for post in posts %}
+        <h3 class="my-4">Posts containing tag <strong>{{ query }}</strong></h3>
+
+    {% if posts %}
+        {% for post in posts %}
+
+        <div id="article" class="col-md-12" style="margin-top: 20px; background-color: lightgrey">
+
+            <div class="row">
+                <div class="col-md-4">
+                    {% if post.home_image %}
+                    <img class="card-img-top img-responsive" src="{{ post.home_image }}" alt="Card image cap" style="height: 170px;width: 135px">
+                {% else %}
+                    <img class="card-img-top img-responsive" src="http://placehold.it/750x300" alt="Card image cap" style="height: 170px;width: 135px">
+                {% endif %}
+                </div>
+
+                <div class="col-md-8">
+                    <div class="row">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <a href="#">{{ post.author }}</a>
+                        </span>
+                        <span>
+                            <span class="glyphicon glyphicon-time"></span>
+                            {{ post.publish_time }}
+                        </span>
+
+                    </div>
 
 
+                    <div class="row">
+                        <h2 class="card-title">{{ post.title }}</h2>
+                        <p class="card-text">{{ post.excerpt_text|smart_excerpt:250 }}</p>
+                        <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                    </div>
+                </div>
 
-
-        {%comment%}
-        <div class="post">
-            <div class="date">
-                {{ post.published_date }}
             </div>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p>
+
         </div>
-        {%endcomment%}
+{#            <hr style="width: 100%; color: black; height: 1px; background-color:black;">#}
 
 
+        {% endfor %}
+    {% else %}
+        <h3>No Published Articles Found</h3>
+    {% endif %}
+
+    </div>
 
 
-        <article class="entry">
+    <div id="article-pagination" class="row" style="padding-top: 15px">
+        {% if posts.paginator.num_pages %}
 
-					<header class="entry-header">
+            <nav aria-label="">
+                <ul class="pagination">
 
-						<h2 class="entry-title">
-							<a href="{{ post.get_absolute_url }}" title="">{{ post.title }}</a>
-						</h2>
-                        {% tags_for_object post as tag_list %}
+                    {% if posts.has_previous %}
+                        <li>
+                            <a href="{% url 'blog:post_list'  posts.previous_page_number %}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
+                                aria-hidden="true">«</span></a></li>
+                    {% endif %}
 
-						<div class="entry-meta">
-							<ul>
-								<li>{{ post.publish }}</li>
-								<span class="meta-sep">&bull;</span>
-								<li>
-                                    {% for tag in tag_list %}
-                                    <a href="#" title="" rel="category tag">{{ tag }}</a>,
-                                    {% endfor %}
-                                    {% comment %}
-									<a href="#" title="" rel="category tag">Wordpress</a>,
-									<a href="#" title="" rel="category tag">Ghost</a>
-									{% endcomment %}
-								</li>
-								<span class="meta-sep">&bull;</span>
-								<li>{{ post.author }}</li>
-							</ul>
-						</div>
+                    {% for i in posts.paginator.num_pages|times %}
+                        {% if i == posts.number %}
+                            <li class="active"><a href="javascript:void(0)">{{ i }}<span
+                                    class="sr-only">(current)</span></a></li>
+                        {% else %}
+                            <li><a href="{% url 'blog:post_list' i %}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
 
-					</header>
+                    {% if posts.has_next %}
+                        <li>
+                            <a href="{% url 'blog:post_list'  posts.next_page_number %}" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
+                                aria-hidden="true">»</span></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
 
-					<div class="entry-content">
-                        {{ post.text|safe }}
-
-					</div>
-
-				</article>
-
-
-
-    {% endfor %}
-    <div class="pagenav">
-            <p>
-            {% if posts.has_previous %}
-            <a rel="prev" href="?page={{ posts.previous_page_number }}">Prev</a>
         {% endif %}
+    </div>
 
-        <span class="current">
-            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-        </span>
 
-            {% if posts.has_next %}
-            <a rel="next" href="?page={{ posts.next_page_number }}">Next</a>
-        {% endif %}
-
-            </p>
-        </div>
-        {% else %}
-            <p>No posts matched your search criteria.</p>
-        {% endif %}
+    </div>
 
 
 {% endblock %}
 
+
+
 {% block sidebar %}
 
 
-    <div id="sidebar" class="four columns">
+    <div class="col-md-8" style="padding-top: 30px">
+        <div class="row" style="background-color: lightgrey; padding-left: 20px">
+            <div class="card my-8">
+                <h2 class="card-header">Tags</h2>
 
-   			<div class="widget widget_search">
-                  <h3>Search</h3>
-                  <form action="{% url 'blog:searchBlog' %}" method="get">
-
-                     <input type="text" value="Search here..." name="q" onblur="if(this.value == '') { this.value = 'Search here...'; }"
-                            onfocus="if (this
-                     .value == 'Search here...') { this.value = ''; }" class="text-search">
-                     <input type="submit" value="" class="submit-search">
-
-                  </form>
-               </div>
-
-   			<div class="widget widget_categories group">
-   				<h3>Categories/Tags</h3>
-   				<ul>
+                <ul class="list-unstyled mb-0">
                     {% for tag in all %}
-                        <li><a href="{% url 'blog:tagSearch' pk=tag.name %}" title="">{{ tag.name }}</a> ({{ tag.count }})</li>
+                        <li>
+                            <a href="{% url 'blog:tagSearch' pk=tag.name %}" style="display:inline-block">
+                                <h5>{{ tag.name }}</h5></a>
+                            ({{ tag.count }})
+                        </li>
                     {% endfor %}
 
-                {% comment %}
-						<li><a href="#" title="">Wordpress</a> (2)</li>
-						<li><a href="#" title="">Ghost</a> (14)</li>
-						<li><a href="#" title="">Joomla</a> (5)</li>
-						<li><a href="#" title="">Drupal</a> (3)</li>
-						<li><a href="#" title="">Magento</a> (2)</li>
-						<li><a href="#" title="">Uncategorized</a> (9)</li>
-
-						{% endcomment %}
-					</ul>
-				</div>
-        {% comment %}
-
-				<div class="widget widget_text group">
-					<h3>Widget Text.</h3>
-
-   				<p>Lorem ipsum Ullamco commodo laboris sit dolore commodo aliquip incididunt fugiat esse dolor aute fugiat minim eiusmod do velit labore fugiat officia ad sit culpa labore in consectetur sint cillum sint consectetur voluptate adipisicing Duis irure magna ut sit amet reprehenderit.</p>
-
-   			</div>
-{% endcomment %}
-   			<div class="widget widget_tags">
-               <h3>Post Tags.</h3>
-
-               <div class="tagcloud group">
-
-                   {% for tag in all %}
-
-                       <a href="{% url 'blog:tagSearch' pk=tag.name %}">{{ tag.name }}</a>
-                    {% endfor %}
-
-
-               </div>
+                </ul>
 
             </div>
+        </div>
 
-            <div class="widget widget_popular">
-               <h3>Recent Posts.</h3>
 
+        <hr>
+
+        <div class="row" style="background-color: lightgrey; padding-left: 20px">
+            <div class="card my-8">
+                <h2 class="card-header">Recent Posts</h2>
                 {% show_latest_posts 3 %}
+            </div>
+        </div>
+
+        <hr>
+        <div class="row" style="background-color: lightgrey; padding-left: 20px">
+            <div class="card my-8">
+                <h2 class="card-header">Popular Posts</h2>
+
+
+                {% show_popular_posts 3 %}
 
 
             </div>
-
-   		</div> <!-- end sidebar -->
+        </div>
+    </div>
 
 {% endblock %}
 

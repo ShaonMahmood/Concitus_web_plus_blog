@@ -10,3 +10,4 @@ db.sqlite3
 _e/*
 create_db.sql
 yourscript.egg-info/*
+media/uploads/*

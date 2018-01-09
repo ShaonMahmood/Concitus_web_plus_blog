@@ -12,42 +12,60 @@
 
 {% block content %}
 
+<div class="row">
 <h1>Dashboard</h1>
 <p>Welcome to {{ request.user }}'s dashboard.</p>
+</div>
 
-   {% if posts %}
-    <table style="width:100%;border-collapse: collapse;border-spacing: 15px;border: 1px solid black">
-  <tr>
+<div class="row">
+
+    <h2> Posts </h2>
+    {% if posts %}
+    <table class="table table-hover table-bordered">
+    <thead>
+    <tr>
       {% if user.is_superuser %}
-          <th style="border-collapse: collapse;border: 1px solid black;text-align: left;padding: 5px;">Author</th>
+          <th>Author</th>
           {% endif %}
-    <th style="border-collapse: collapse;border: 1px solid black;text-align: left;padding: 5px;">Title</th>
-    <th style="border-collapse: collapse;border: 1px solid black;text-align: left;padding: 5px;">Status</th>
-    <th style="border-collapse: collapse;border: 1px solid black;text-align: left;padding: 5px;">Creation</th>
-      <th style="border-collapse: collapse;border: 1px solid black;text-align: left;padding: 5px;">Last Updated</th>
+    <th>Title</th>
+    <th>Status</th>
+    <th>Creation</th>
+      <th>Last Updated</th>
   </tr>
-    {% for post in posts %}
+    </thead>
+<tbody>
+
+{% for post in posts %}
 
 
         <tr>
         {% if user.is_superuser %}
-            <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;">{{ post.author }}</td>
+            <td>{{ post.author }}</td>
         {% endif %}
-            <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;"><a
+            <td><a
                     href="{{ post.get_absolute_url }}" title=""
             >{{ post.title }}</a></td>
-            <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;">{{ post.status }}</td>
-            <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;">{{ post.created }}</td>
-            <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;">{{ post.updated }}</td>
+            <td>{{ post.status }}</td>
+            <td>{{ post.created }}</td>
+            <td>{{ post.updated }}</td>
             {% if user.is_superuser %}
-                <td style="border-collapse: collapse;border: 1px solid black;padding: 5px;"><a href="{% url 'blog:post_delete' pk=post.pk %}">
+                <td><a href="{% url 'blog:post_delete' pk=post.pk %}">
                     <i class="fa fa-trash-o"></i></a></td>
             {% endif %}
         </tr>
 
     {% endfor %}
 
-    <div class="pagenav">
+</tbody>
+    </table>
+        {% else %}
+            <p>No posts</p>
+        {% endif %}
+</div>
+
+
+
+    <div class="row">
             <p>
             {% if posts.has_previous %}
             <a rel="prev" href="?page={{ posts.previous_page_number }}">Prev</a>
@@ -63,15 +81,12 @@
 
             </p>
         </div>
-</table>
-    {% else %}
-            <p>No posts</p>
-        {% endif %}
-</div> <!-- end sidebar -->
 
-   	</div> <!-- end row -->
 
-   </div>
+ <!-- end sidebar -->
+
+   	 <!-- end row -->
+
 
 
 {% endblock %}

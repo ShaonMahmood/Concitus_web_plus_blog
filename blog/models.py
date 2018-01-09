@@ -43,13 +43,22 @@ class Post(models.Model):
     )
 
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250,unique_for_date='publish')
+    slug = models.SlugField(max_length=500)
     text = RichTextUploadingField()
     tags = TagField()
     author = models.ForeignKey(User,related_name='blog_posts',on_delete=models.SET_NULL,null=True)
-    publish = models.DateTimeField(default=timezone.now)
+    home_image = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)
+    excerpt_text = models.CharField(max_length=1000, blank=True)
+    total_viewed = models.IntegerField(default=0)
+    publish_time = models.DateTimeField(
+        blank=True,
+        null=True
+    )
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(
+        blank=True,
+        null=True
+    )
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
@@ -67,13 +76,11 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog:post_detail',
-                       args=[self.publish.year,
-                             self.publish.strftime('%m'),
-                             self.publish.strftime('%d'),
+                       args=[self.pk,
                              self.slug])
 
     class Meta:
-        ordering = ["-publish", ]
+        ordering = ["-created", ]
 
 
 

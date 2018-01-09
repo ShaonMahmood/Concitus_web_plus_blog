@@ -3,152 +3,109 @@
 {% load tagging_tags %}
 {% load blog_tags %}
 
+
 {% block title %}Detail: {{ post.title }}{% endblock %}
 {% block content %}
-    {% comment %}
-    <div class="post">
-        {% if post.published_date %}
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-        {% endif %}
-        {% if user.is_authenticated %}
-     <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-{% endif %}
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaksbr }}</p>
-    </div>
-    {% endcomment %}
 
+    <div class="col-md-10">
 
-    <article class="entry">
-
-					<header class="entry-header">
-
-						<h2 class="entry-title">
+    <div class="row">
+        <h2 class="entry-title">
 							{{ post.title }}
 						</h2>
-                    {% if user.is_authenticated %}
-     <a class="btn btn-default" href="
-{% url 'blog:post_edit' pk=post.pk %}"><span
-             class="glyphicon
-     glyphicon-pencil"></span></a>
-{% endif %}
-                    {% tags_for_object post as tag_list %}
+        {% if user.is_authenticated %}
 
-						<div class="entry-meta">
-							<ul>
-								<li>{{ post.published_date }}</li>
-								<span class="meta-sep">&bull;</span>
-								<li>
-                                    {% for tag in tag_list %}
-                                    <a href="#" title="" rel="category tag">{{ tag }}</a>,
+             <span>
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <a href="{% url 'blog:post_edit' pk=post.pk %}">Edit Post</a>
+                        </span>
+
+
+        {% endif %}
+    </div>
+
+
+
+        <div class="row">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <a href="#">{{ post.author }}</a>
+                        </span>
+            <span>
+                            <span class="glyphicon glyphicon-time"></span>
+                            {{ post.publish_time }}
+                        </span>
+            <span>
+                <span class="glyphicon glyphicon-tags" style="padding-right: 3px"></span>
+            {% tags_for_object post as tag_list %}
+                {% for tag in tag_list %}
+                                    <a href="{% url 'blog:tagSearch' pk=tag.name %}" title="" rel="category tag">{{ tag }}</a>,
                                     {% endfor %}
-                                    {% comment %}
-									<a href="#" title="" rel="category tag">Wordpress</a>,
-									<a href="#" title="" rel="category tag">Ghost</a>
-									{% endcomment %}
-								</li>
-								<span class="meta-sep">&bull;</span>
-								<li>{{ post.author }}</li>
-							</ul>
-						</div>
 
-					</header>
-
-{#					<div class="entry-content-media">#}
-{#						<div class="post-thumb">#}
-{#							<img src="{% static 'images/sample-image.jpg' %}">#}
-{#						</div>#}
-{#					</div>#}
-
-					<div class="entry-content">
-						{{ post.text|safe }}
-					</div>
-
-					<p class="tags">
-  			         <span>Tagged in </span>:
-                        {% for tag in tag_list %}
-                                    <a href="#" title="" rel="category tag">{{ tag }}</a>,
-                                    {% endfor %}
-  			       </p>
+            </span>
 
 
-				</article>
+        </div>
+
+    <div class="row" style="margin-top: 20px">
+        {{ post.text|safe }}
+    </div>
+
+    </div>
+
 {% endblock %}
 
 
-{% if user.is_authenticated is False %}
+
 
 {% block sidebar %}
 
+    {% if user.is_authenticated is False %}
 
-    <div id="sidebar" class="four columns">
+<div class="col-md-8"  style="padding-top: 30px">
+    <div class="row" style="background-color: lightgrey; padding-left: 20px">
+        <div class="card my-8">
+            <h2 class="card-header">Tags</h2>
 
-   			<div class="widget widget_search">
-                  <h3>Search</h3>
-                  <form action="{% url 'blog:searchBlog' %}" method="get">
+                        <ul class="list-unstyled mb-0">
+                            {% for tag in all %}
+                                <li>
+                                    <a href="{% url 'blog:tagSearch' pk=tag.name %}" style="display:inline-block">
+                                        <h5>{{ tag.name }}</h5></a>
+                                    ({{ tag.count }})
+                                </li>
+                            {% endfor %}
 
-                     <input type="text" value="Search here..." name="q" onblur="if(this.value == '') { this.value = 'Search here...'; }"
-                            onfocus="if (this
-                     .value == 'Search here...') { this.value = ''; }" class="text-search">
-                     <input type="submit" value="" class="submit-search">
+                        </ul>
 
-                  </form>
-               </div>
-
-   			<div class="widget widget_categories group">
-   				<h3>Categories/Tags</h3>
-   				<ul>
-                    {% for tag in all %}
-                        <li><a href="{% url 'blog:tagSearch' pk=tag.name %}" title="">{{ tag.name }}</a> ({{ tag.count }})</li>
-                    {% endfor %}
-
-                {% comment %}
-						<li><a href="#" title="">Wordpress</a> (2)</li>
-						<li><a href="#" title="">Ghost</a> (14)</li>
-						<li><a href="#" title="">Joomla</a> (5)</li>
-						<li><a href="#" title="">Drupal</a> (3)</li>
-						<li><a href="#" title="">Magento</a> (2)</li>
-						<li><a href="#" title="">Uncategorized</a> (9)</li>
-
-						{% endcomment %}
-					</ul>
-				</div>
-        {% comment %}
-
-				<div class="widget widget_text group">
-					<h3>Widget Text.</h3>
-
-   				<p>Lorem ipsum Ullamco commodo laboris sit dolore commodo aliquip incididunt fugiat esse dolor aute fugiat minim eiusmod do velit labore fugiat officia ad sit culpa labore in consectetur sint cillum sint consectetur voluptate adipisicing Duis irure magna ut sit amet reprehenderit.</p>
-
-   			</div>
-{% endcomment %}
-   			<div class="widget widget_tags">
-               <h3>Post Tags.</h3>
-
-               <div class="tagcloud group">
-
-                   {% for tag in all %}
-
-                       <a href="{% url 'blog:tagSearch' pk=tag.name %}">{{ tag.name }}</a>
-                    {% endfor %}
+        </div>
+    </div>
 
 
-               </div>
+<hr>
 
-            </div>
+    <div class="row" style="background-color: lightgrey; padding-left: 20px">
+        <div class="card my-8">
+            <h2 class="card-header">Recent Posts</h2>
+                        {% show_latest_posts 3 %}
+        </div>
+    </div>
 
-            <div class="widget widget_popular">
-               <h3>Recent Posts.</h3>
+<hr>
+    <div class="row" style="background-color: lightgrey; padding-left: 20px">
+        <div class="card my-8">
+            <h2 class="card-header">Popular Posts</h2>
 
-                {% show_latest_posts 3 %}
 
 
-            </div>
+                        {% show_popular_posts 3 %}
 
-   		</div> <!-- end sidebar -->
 
+
+        </div>
+    </div>
+</div>
+    {% endif %}
 {% endblock %}
 
-{% endif %}
+
