@@ -5,9 +5,56 @@
 
 
 {% block title %}Detail: {{ post.title }}{% endblock %}
+
+{% block extra_meta %}
+    {% if post.home_image %}
+        <meta property="og:title" content="{{ post.title }}" />
+        <meta property="og:image" content="{{ post.home_image }}" />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="300" />
+    {% endif %}
+{% endblock extra_meta %}
+
+{% block extra_css %}
+
+    <style>
+        .post-tags {
+            padding-right: 3px;
+        }
+
+        .post-text {
+            margin-top: 20px;
+        }
+
+        .sidebar {
+            padding-top: 30px;
+        }
+
+        .tags {
+            background-color: lightgoldenrodyellow;
+            padding-left: 20px;
+        }
+
+        .tag-list {
+            display: inline-block;
+        }
+
+        .sideline-post {
+            background-color: lightgoldenrodyellow;
+            padding-left: 20px;
+        }
+
+    </style>
+
+{% endblock extra_css %}
+
 {% block content %}
 
-    <div class="col-md-10">
+    <div class="col-md-11">
+
+    <div class="row"><a {% if user.is_authenticated %}href="{% url 'blog:dashboard' %}" {% else %} href="{% url 'blog:post_list' %}"{% endif %}><button type="button" class="btn btn-primary">All post</button></a></div>
+
+
 
     <div class="row">
         <h2 class="entry-title">
@@ -29,25 +76,29 @@
         <div class="row">
                         <span>
                             <span class="glyphicon glyphicon-user"></span>
-                            <a href="#">{{ post.author }}</a>
+                            <a {% if user.is_authenticated %}href="{% url 'blog:dashboard' %}" {% else %} href="{% url 'blog:writersearch' post.author %}"{% endif %}>{{ post.author }}</a>
                         </span>
             <span>
                             <span class="glyphicon glyphicon-time"></span>
                             {{ post.publish_time }}
                         </span>
-            <span>
-                <span class="glyphicon glyphicon-tags" style="padding-right: 3px"></span>
+
+
+
+        </div>
+
+    <div class="row">
+        <span>
+                <span class="glyphicon glyphicon-tags post-tags"></span>
             {% tags_for_object post as tag_list %}
                 {% for tag in tag_list %}
                                     <a href="{% url 'blog:tagSearch' pk=tag.name %}" title="" rel="category tag">{{ tag }}</a>,
                                     {% endfor %}
 
             </span>
+    </div>
 
-
-        </div>
-
-    <div class="row" style="margin-top: 20px">
+    <div class="row post-text">
         {{ post.text|safe }}
     </div>
 
@@ -60,17 +111,22 @@
 
 {% block sidebar %}
 
-    {% if user.is_authenticated is False %}
+    {% if user.is_authenticated %}
 
-<div class="col-md-8"  style="padding-top: 30px">
-    <div class="row" style="background-color: lightgrey; padding-left: 20px">
+
+    {% else %}
+
+
+
+<div class="col-md-8 sidebar">
+    <div class="row tags">
         <div class="card my-8">
             <h2 class="card-header">Tags</h2>
 
                         <ul class="list-unstyled mb-0">
                             {% for tag in all %}
                                 <li>
-                                    <a href="{% url 'blog:tagSearch' pk=tag.name %}" style="display:inline-block">
+                                    <a href="{% url 'blog:tagSearch' pk=tag.name %}" class="tag-list">
                                         <h5>{{ tag.name }}</h5></a>
                                     ({{ tag.count }})
                                 </li>
@@ -84,7 +140,7 @@
 
 <hr>
 
-    <div class="row" style="background-color: lightgrey; padding-left: 20px">
+    <div class="row sideline-post">
         <div class="card my-8">
             <h2 class="card-header">Recent Posts</h2>
                         {% show_latest_posts 3 %}
@@ -92,7 +148,7 @@
     </div>
 
 <hr>
-    <div class="row" style="background-color: lightgrey; padding-left: 20px">
+    <div class="row sideline-post">
         <div class="card my-8">
             <h2 class="card-header">Popular Posts</h2>
 
@@ -105,7 +161,9 @@
         </div>
     </div>
 </div>
+
     {% endif %}
+
 {% endblock %}
 
 

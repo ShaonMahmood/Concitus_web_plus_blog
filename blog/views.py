@@ -20,17 +20,21 @@ from tagging.models import TaggedItem
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-def tag_search(request,pk):
+def tag_search(request,pk,pagenum=None):
     queryset_list = TaggedItem.objects.get_by_model(Post,pk)
     all = Tag.objects.usage_for_model(Post,filters=dict(status='published'), counts=True)
-    paginator = Paginator(queryset_list, 4)  # Show 25 contacts per page
+      # Show 25 contacts per page
 
-    page = request.GET.get('page')
+    if pagenum is None:
+        page = 1
+    else:
+        page = int(pagenum)
+    paginator = Paginator(queryset_list, 3)
     try:
         queryset = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        queryset = paginator.page(1)
+        queryset = paginator.page(page)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         queryset = paginator.page(paginator.num_pages)
@@ -65,26 +69,6 @@ def search(request):
     return render(request, 'blog/search_form.html', {'error': error})
 
 
-
-
-"""def listing(request):
-    contact_list = Contacts.objects.all()
-    paginator = Paginator(contact_list, 25) # Show 25 contacts per page
-
-    page = request.GET.get('page')
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        contacts = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        contacts = paginator.page(paginator.num_pages)
-
-    return render(request, 'list.html', {'contacts': contacts})
-    """
-
-
 def post_list(request,pagenum=None):
     # posts = Post.objects.filter(published_date__lte=timezone.now())
     # house_tag = Tag.objects.all()
@@ -96,7 +80,7 @@ def post_list(request,pagenum=None):
     else:
         page = int(pagenum)
 
-    paginator = Paginator(queryset_list, 5)  # Show 5 contacts per page
+    paginator = Paginator(queryset_list, 3)  # Show 5 contacts per page
 
     # page = request.GET.get('page')
     try:
@@ -112,7 +96,28 @@ def post_list(request,pagenum=None):
     return render(request, 'blog/post_list.html', {'posts': queryset,'all':all,'pagenum': pagenum})
 
 
+def search_by_writer(request, writer,pagenum=None):
+    queryset_list = Post.objects.filter(author__username=writer)
+    all = Tag.objects.usage_for_model(Post, filters=dict(status='published'), counts=True)
 
+    if pagenum is None:
+        page = 1
+    else:
+        page = int(pagenum)
+
+    paginator = Paginator(queryset_list, 3)  # Show 5 contacts per page
+
+    # page = request.GET.get('page')
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        queryset = paginator.page(page)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        queryset = paginator.page(paginator.num_pages)
+
+    return render(request, 'blog/writers_post.html', {'posts': queryset,'writer':writer, 'all': all, 'pagenum': pagenum})
 
 def post_detail(request,pk,slug):
     post = get_object_or_404(Post, slug=slug,pk=pk)
@@ -192,23 +197,7 @@ def post_edit(request, pk):
             print("###################################")
             post.save()
             return HttpResponseRedirect(reverse('blog:dashboard'))
-            # if request.user.is_superuser:
-            #     queryset_list = Post.objects.all()
-            # else:
-            #     queryset_list = Post.objects.filter(author__username=request.user.username)
-            #
-            # paginator = Paginator(queryset_list, 5)  # Show 25 contacts per page
-            #
-            # page = request.GET.get('page')
-            # try:
-            #     queryset = paginator.page(page)
-            # except PageNotAnInteger:
-            #     # If page is not an integer, deliver first page.
-            #     queryset = paginator.page(1)
-            # except EmptyPage:
-            #     # If page is out of range (e.g. 9999), deliver last page of results.
-            #     queryset = paginator.page(paginator.num_pages)
-            # return render(request,'blog/dashboard.html',{'posts': queryset,})
+
         else:
             return render(request, 'blog/post_edit.html', {'form': form})
             # return JsonResponse(form.errors,status=400)
@@ -256,7 +245,7 @@ def dashboard(request):
     else:
         queryset_list = Post.objects.filter(author__username=request.user.username)
 
-    paginator = Paginator(queryset_list, 5)  # Show 25 contacts per page
+    paginator = Paginator(queryset_list, 3)  # Show 25 contacts per page
 
     page = request.GET.get('page')
     try:
@@ -270,3 +259,5 @@ def dashboard(request):
     return render(request,
     'blog/dashboard.html',
     {'posts': queryset,})
+
+

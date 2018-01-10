@@ -57,8 +57,9 @@
     <div id="articles" class="row">
 
         <a href="{% url 'blog:post_list' %}"><button type="button" class="btn btn-primary">All post</button></a>
+        <span><a href="{% url 'blog:writersearch' writer %}"><button type="button" class="btn btn-primary">{{ writer }}</button></a></span>
 
-        <h2 class="my-4">Welcome to Concitus Blog</h2>
+        <h2 class="my-4">Posts written by {{ writer }}</h2>
 
     {% if posts %}
         {% for post in posts %}
@@ -78,7 +79,7 @@
                     <div class="row title-heading">
                         <span>
                             <span class="glyphicon glyphicon-user"></span>
-                            <a {% if user.is_authenticated %}href="{% url 'blog:dashboard' %}" {% else %} href="{% url 'blog:writersearch' post.author %}"{% endif %}>{{ post.author }}</a>
+                            <a href="#">{{ post.author }}</a>
                         </span>
                         <span>
                             <span class="glyphicon glyphicon-time"></span>
@@ -117,7 +118,7 @@
 
                     {% if posts.has_previous %}
                         <li>
-                            <a href="{% url 'blog:post_list'  posts.previous_page_number %}"
+                            <a href="{% url 'blog:writersearch' writer  posts.previous_page_number %}"
                                aria-label="Previous">
                                 <span aria-hidden="true">«</span>
                             </a>
@@ -132,13 +133,13 @@
                             <li class="active"><a href="javascript:void(0)">{{ i }}<span
                                     class="sr-only">(current)</span></a></li>
                         {% else %}
-                            <li><a href="{% url 'blog:post_list' i %}">{{ i }}</a></li>
+                            <li><a href="{% url 'blog:writersearch' writer i %}">{{ i }}</a></li>
                         {% endif %}
                     {% endfor %}
 
                     {% if posts.has_next %}
                         <li>
-                            <a href="{% url 'blog:post_list'  posts.next_page_number %}" aria-label="Next">
+                            <a href="{% url 'blog:writersearch' writer  posts.next_page_number %}" aria-label="Next">
                                 <span aria-hidden="true">»</span>
                             </a>
                         </li>
